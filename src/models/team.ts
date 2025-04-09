@@ -1,20 +1,24 @@
-// URL of the Google Docs document to fetch
-const url = 'https://queenscountyrec.com/teams/?seasonNo=64&teamNo=5'
-
 /**
  * Fetch team schedule data from the QCRL website, parse it and display it on the main page
  */
-export const getSchedule = async (): Promise<string | null> => {
-    try {
-        const response = await fetch(url);
-        const data = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const scheduleElement = doc.getElementById("calendarTeam");
+// Send a request to the backend server to fetch elements from the URL
+export async function getSchedule(): Promise<string | null> {
+    const proxyUrl = "http://127.0.0.1:5000/scrape"; // Flask server endpoint
+    const targetUrl = "https://queenscountyrec.com/teams/?seasonNo=64&teamNo=5"; // Target URL to scrape
 
-        return scheduleElement ? scheduleElement.textContent : null; // Return text content or null
+    try {
+        const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(targetUrl)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json(); // Assuming data is JSON and contains a 'schedule' property
+        console.log("Extracted Elements:", data);
+
+        // Return the 'schedule' property from the JSON response (adjust based on actual structure)
+        return data.elements?.join(", ") || null; // Combine elements if it's an array of strings
     } catch (error) {
-        console.error("Error fetching schedule:", error);
-        throw error;
+        console.error("Error fetching elements:", error);
+        return null; // Return null if there's an error
     }
-};
+}

@@ -25,9 +25,9 @@ export default function MainContent() {
   // Fetch and execute getSchedule automatically on component mount
   useEffect(() => {
     getSchedule()
-      .then((data) => setSchedule(data)) // Save fetched schedule data to the state
-      .catch((error) => console.error("Error fetching schedule:", error)); // Handle errors
-  }, []);
+        .then((data) => setSchedule(data)) // Save fetched schedule data to state
+        .catch((error) => console.error("Error fetching schedule:", error)); // Handle errors
+}, []);
 
   return (
     <Flex
