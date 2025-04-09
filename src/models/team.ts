@@ -12,7 +12,7 @@ export async function getSchedule(): Promise<string | null> {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json(); // Assuming data is JSON and contains a 'schedule' property
+        const data = await response.json(); 
         console.log("Extracted Elements:", data);
 
         // Return the 'schedule' property from the JSON response (adjust based on actual structure)
