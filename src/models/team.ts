@@ -1,17 +1,27 @@
-export async function getSchedule(): Promise<string | null> {
+// export async function getSchedule(): Promise<string | null> {
+
+export async function getSchedule() {
+
+    console.log("hello from getSchedule()")
+
+    const url = "http://localhost:3000";
+
     try {
-        const content = ""
+        const response = await fetch(url);
         
-        if (content) {
-            console.log("Fetched Schedule Content:", content); // Log the content to the console        
-        } else {
-            console.log("No content was fetched.");
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
         }
 
-        return content;
+        // console.log(response)
+        const json = await response.json();
+        console.log(json);
 
     } catch (error) {
-        console.error("Failed to fetch schedule:", error instanceof Error ? error.message : error);
-        return null;
+        if (error instanceof Error) {
+            console.error(error.message);
+        } else {
+            console.error("An unknown error occurred");
+        }
     }
 }

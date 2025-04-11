@@ -29,14 +29,15 @@ export default function MainContent() {
       didFetch.current = true;
 
       getSchedule()
-        .then((data) => {
-          if (data) {
-            setSchedule(data);                          // Save fetched schedule data to state
-          } else {
-            console.log("No schedule data available."); // Log if no data is found
-          }
-        })
-        .catch((error) => console.error("Error fetching schedule:", error)); // Handle errors      
+        // .then((data) => {
+        //   if (data) {            
+        //     setSchedule(data);                         
+        //   } else {
+        //     console.log("No schedule data available."); 
+        //   }
+        // })
+        // .catch((error) => console.error("Error fetching schedule:", error));  
+
       return () => subscription.unsubscribe();
     }
   }, []);
