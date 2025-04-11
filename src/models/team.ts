@@ -1,5 +1,3 @@
-// import { fetchData } from "../util/fetchData";
-
 export async function getSchedule(): Promise<string | null> {
     try {
         const content = ""
@@ -15,7 +13,3 @@ export async function getSchedule(): Promise<string | null> {
         return null;
     }
 }
-
-// export function displaySchedule(content: string | null): void {
-//     console.log(content);
-// }
