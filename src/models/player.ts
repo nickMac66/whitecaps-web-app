@@ -3,6 +3,12 @@ import { generateClient } from "aws-amplify/data";
 
 export const client = generateClient<Schema>();
 
+// Define the type for players (adjust based on your actual Schema in player.ts if needed)
+export interface PlayerType {
+  id: string;
+  content: string;
+}
+
 export function createPlayer() {
     client.models.Player.create({ content: window.prompt("Player name") });
 }

@@ -1,24 +1,21 @@
-/**
- * Fetch team schedule data from the QCRL website, parse it and display it on the main page
- */
-// Send a request to the backend server to fetch elements from the URL
+// import { fetchData } from "../util/fetchData";
+
 export async function getSchedule(): Promise<string | null> {
-    const proxyUrl = "http://127.0.0.1:5000/scrape"; // Flask server endpoint
-    const targetUrl = "https://queenscountyrec.com/teams/?seasonNo=64&teamNo=5"; // Target URL to scrape
-
     try {
-        const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(targetUrl)}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        const content = ""
+        
+        if (content) {
+            console.log("Fetched Schedule Content:", content); // Log the content to the console
+        } else {
+            console.log("No content was fetched.");
         }
-
-        const data = await response.json(); 
-        console.log("Extracted Elements:", data);
-
-        // Return the 'schedule' property from the JSON response (adjust based on actual structure)
-        return data.elements?.join(", ") || null; // Combine elements if it's an array of strings
+        return content; // Return the fetched content
     } catch (error) {
-        console.error("Error fetching elements:", error);
-        return null; // Return null if there's an error
+        console.error("Failed to fetch schedule:", error instanceof Error ? error.message : error);
+        return null;
     }
 }
+
+// export function displaySchedule(content: string | null): void {
+//     console.log(content);
+// }

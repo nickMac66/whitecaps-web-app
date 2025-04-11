@@ -1,9 +1,9 @@
 import { Flex, Image, Heading, Button } from "@aws-amplify/ui-react";
 import wcLogo from "../assets/images/wc-logo.jpg";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPlayer, deletePlayer, observePlayers } from "../models/player";
-import { getSchedule } from "../models/team";
+import { getSchedule } from "../models/team"; // Importing the getSchedule function
 
 // Define the type for players (adjust based on your actual Schema in player.ts if needed)
 interface PlayerType {
@@ -15,6 +15,7 @@ export default function MainContent() {
   const { user, signOut } = useAuthenticator(); // Authenticator hooks for user and sign-out functionality
   const [players, setPlayers] = useState<PlayerType[]>([]); // Local state for player data
   const [schedule, setSchedule] = useState<string | null>(null); // State to store the schedule data
+  const didFetch = useRef(false); // Ref to prevent duplicate fetch calls
 
   // Subscribe to player updates on mount
   useEffect(() => {
@@ -24,10 +25,20 @@ export default function MainContent() {
 
   // Fetch and execute getSchedule automatically on component mount
   useEffect(() => {
-    getSchedule()
-        .then((data) => setSchedule(data)) // Save fetched schedule data to state
+    if (!didFetch.current) {
+      didFetch.current = true;
+
+      getSchedule()
+        .then((data) => {
+          if (data) {
+            setSchedule(data); // Save fetched schedule data to state
+          } else {
+            console.log("No schedule data available."); // Log if no data is found
+          }
+        })
         .catch((error) => console.error("Error fetching schedule:", error)); // Handle errors
-}, []);
+    }
+  }, []);
 
   return (
     <Flex
@@ -45,7 +56,7 @@ export default function MainContent() {
       {schedule && (
         <div>
           <Heading level={4}>Team Schedule</Heading>
-          <div>{schedule}</div>
+          <div dangerouslySetInnerHTML={{ __html: schedule }} /> {/* Render schedule content as HTML */}
         </div>
       )}
 
