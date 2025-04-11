@@ -38,13 +38,13 @@ app.get('/', async (req, res) => {
                     };
                 });
             });
-            
+
             console.log(JSON.stringify(data, null, 2)); 
             await browser.close();
         })();
     } catch (error) {
         console.error('Error fetching data:', error);
-        res.status(500).json({ error: 'Failed to fetch schedule.' }); // Handle errors
+        res.status(500).json({ error: 'Failed to fetch schedule.' }); 
     }
 });
 
