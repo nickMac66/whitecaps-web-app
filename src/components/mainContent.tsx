@@ -3,40 +3,41 @@ import wcLogo from "../assets/images/wc-logo.jpg";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { useEffect, useRef, useState } from "react";
 import { createPlayer, deletePlayer, observePlayers } from "../models/player";
-import { getSchedule } from "../models/team"; // Importing the getSchedule function
+import { getSchedule } from "../models/team";
 
-// Define the type for players (adjust based on your actual Schema in player.ts if needed)
+// Define the type for players Schema in player.ts
 interface PlayerType {
   id: string;
   content: string;
 }
 
 export default function MainContent() {
-  const { user, signOut } = useAuthenticator(); // Authenticator hooks for user and sign-out functionality
-  const [players, setPlayers] = useState<PlayerType[]>([]); // Local state for player data
+  
+  const { user, signOut } = useAuthenticator();                  // Authenticator hooks for user and sign-out functionality
+  const [players, setPlayers] = useState<PlayerType[]>([]);      // Local state for player data
   const [schedule, setSchedule] = useState<string | null>(null); // State to store the schedule data
-  const didFetch = useRef(false); // Ref to prevent duplicate fetch calls
+  const didFetch = useRef(false);                                // Ref to prevent duplicate fetch calls
 
-  // Subscribe to player updates on mount
+  /* Fetch and execute getSchedule, subscribe to 
+     player updates automatically on component mount */
   useEffect(() => {
+    
     const subscription = observePlayers(setPlayers);
-    return () => subscription.unsubscribe(); // Clean up the subscription on unmount
-  }, []);
 
-  // Fetch and execute getSchedule automatically on component mount
-  useEffect(() => {
-    if (!didFetch.current) {
+    if (!didFetch.current) {    
+
       didFetch.current = true;
 
       getSchedule()
         .then((data) => {
           if (data) {
-            setSchedule(data); // Save fetched schedule data to state
+            setSchedule(data);                          // Save fetched schedule data to state
           } else {
             console.log("No schedule data available."); // Log if no data is found
           }
         })
-        .catch((error) => console.error("Error fetching schedule:", error)); // Handle errors
+        .catch((error) => console.error("Error fetching schedule:", error)); // Handle errors      
+      return () => subscription.unsubscribe();
     }
   }, []);
 
@@ -56,10 +57,10 @@ export default function MainContent() {
       {schedule && (
         <div>
           <Heading level={4}>Team Schedule</Heading>
-          <div dangerouslySetInnerHTML={{ __html: schedule }} /> {/* Render schedule content as HTML */}
+          <div dangerouslySetInnerHTML={{ __html: schedule }} />
         </div>
       )}
-
+      
       <Button onClick={createPlayer}>Add Player</Button>
       <ul>
         {players.map((player) => (

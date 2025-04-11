@@ -8,19 +8,27 @@ const targetUrl = "https://queenscountyrec.com/teams/?seasonNo=64&teamNo=5";
 const targetId = "#calendarTeam";
 
 app.get('/', async (req, res) => {
+
     try {
-        console.log("hello from home")
+
         const { chromium } = playwright;
+
         (async () => {
+
             const browser = await chromium.launch({ headless: true });
             const context = await browser.newContext({
                 userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
             });
+
             const page = await context.newPage();
+
             await page.goto('https://queenscountyrec.com/teams/?seasonNo=64&teamNo=5', { waitUntil: 'networkidle' });
             await page.waitForSelector('#calendarTeam');
+
             const rawHtml = await page.$eval('#calendarTeam', element => element.innerHTML);
+            console.log("html: ", rawHtml)
             const data = await page.$$eval('#calendarTeam table tbody tr', rows => {
+
                 return rows.map(row => {
                     const cells = row.querySelectorAll('td');
                     return {
@@ -39,12 +47,15 @@ app.get('/', async (req, res) => {
                 });
             });
 
-            console.log(JSON.stringify(data, null, 2)); 
+            console.log(JSON.stringify(data, null, 2));
+            // res.render("index", { scheduleJson: JSON.stringify(data, null, 2) }); 
             await browser.close();
         })();
+
     } catch (error) {
+
         console.error('Error fetching data:', error);
-        res.status(500).json({ error: 'Failed to fetch schedule.' }); 
+        res.status(500).json({ error: 'Failed to fetch schedule.' });
     }
 });
 
