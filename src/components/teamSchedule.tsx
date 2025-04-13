@@ -1,38 +1,6 @@
 import { useState, useEffect } from 'react';
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  ThemeProvider,
-  Theme,
-} from '@aws-amplify/ui-react';
-
-const theme: Theme = {
-  name: 'table-theme',
-  tokens: {
-    components: {
-      table: {        
-        row: {
-          hover: {
-            backgroundColor: { value: '{colors.blue.20}' },            
-          },
-          striped: {
-            backgroundColor: { value: '{colors.blue.10}' },
-          },
-        },
-        header: {
-          color: { value: '{colors.blue.80}' },
-          fontSize: { value: '{fontSizes.xl}' },
-        },
-        data: {
-          fontWeight: { value: '{fontWeights.semibold}' },
-        },
-      },
-    },
-  },
-};
+import { Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from '@aws-amplify/ui-react';
+import tableTheme from '../themes/tableTheme'; // Import the theme
 
 export const TeamSchedule = () => {
   const [schedule, setSchedule] = useState<any[] | null>(null);
@@ -43,37 +11,24 @@ export const TeamSchedule = () => {
     const getSchedule = async () => {
       try {
         const response = await fetch(url);
-
         if (!response.ok) {
           throw new Error(`Response status: ${response.status}`);
         }
-
         const scheduleJson = await response.json();
-        setSchedule(scheduleJson); // Save the fetched data into state
+        setSchedule(scheduleJson);
       } catch (error) {
-        if (error instanceof Error) {
-          console.error(error.message);
-          setError(error.message); // Handle errors gracefully
-        } else {
-          console.error('An unknown error occurred');
-          setError('An unknown error occurred');
-        }
+        setError(error instanceof Error ? error.message : 'An unknown error occurred');
       }
     };
 
     getSchedule();
   }, []);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!schedule) {
-    return <div>Loading schedule...</div>;
-  }
+  if (error) return <div>Error: {error}</div>;
+  if (!schedule) return <div>Loading schedule...</div>;
 
   return (
-    <ThemeProvider theme={theme} colorMode="light">
+    <ThemeProvider theme={tableTheme} colorMode="light">
       <Table highlightOnHover variation="striped">
         <TableHead>
           <TableRow>
