@@ -1,6 +1,9 @@
 // export async function getSchedule(): Promise<string | null> {
 
-export async function getSchedule() {
+
+export async function getSchedule(): Promise<JSON | null> {
+
+    let scheduleJson
 
     console.log("hello from getSchedule()")
 
@@ -8,14 +11,14 @@ export async function getSchedule() {
 
     try {
         const response = await fetch(url);
-        
+
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
 
-        // console.log(response)
-        const json = await response.json();
-        console.log(json);
+        scheduleJson = await response.json();
+        console.log(scheduleJson);
+        displaySchedule(scheduleJson);
 
     } catch (error) {
         if (error instanceof Error) {
@@ -24,4 +27,28 @@ export async function getSchedule() {
             console.error("An unknown error occurred");
         }
     }
+    return scheduleJson
 }
+
+function displaySchedule(scheduleJson: Record<string, any>) {
+    let scheduleTable = '<table>'
+
+    for (const key in scheduleJson) {
+        scheduleTable += '<tr>'
+        console.log(scheduleJson[key])
+        const game = scheduleJson[key]
+
+        for (const key in game) {
+            console.log("category: ", key)
+            let value = game[key]
+
+            scheduleTable += `<th>${key}</th><td>${value}</td>`
+
+        }
+
+        scheduleTable += '</tr>'
+    }
+    scheduleTable += '</table>'
+    console.log(scheduleTable)
+}
+
