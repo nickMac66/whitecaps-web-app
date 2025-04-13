@@ -1,9 +1,8 @@
 import { Flex, Image, Heading, Button } from "@aws-amplify/ui-react";
 import wcLogo from "../assets/images/wc-logo.jpg";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPlayer, deletePlayer, observePlayers } from "../models/player";
-// import { getSchedule } from "../models/team";
 import { TeamSchedule } from "./teamSchedule";
 
 // Define the type for players Schema in player.ts
@@ -14,30 +13,13 @@ interface PlayerType {
 
 export default function MainContent() {
 
-  const { signOut } = useAuthenticator();                  // Authenticator hooks for user and sign-out functionality
-  const [players, setPlayers] = useState<PlayerType[]>([]);      // Local state for player data
-  // const [schedule, setSchedule] = useState<string | null>(null); // State to store the schedule data
-  const didFetch = useRef(false);                                // Ref to prevent duplicate fetch calls
+  const { signOut } = useAuthenticator();                   // Authenticator hooks for user and sign-out functionality
+  const [players, setPlayers] = useState<PlayerType[]>([]); // Local state for player data
 
-  /* Fetch and execute getSchedule, subscribe to 
-     player updates automatically on component mount */
+  // Subscribe to player updates automatically on component mount 
   useEffect(() => {
-
     const subscription = observePlayers(setPlayers);
-
-    if (!didFetch.current) {
-
-      didFetch.current = true;
-
-      const fetchData = async () => {
-        // const scheduleData = await getSchedule();
-        // setSchedule(scheduleData);
-      };
-
-      fetchData();
-
-      return () => subscription.unsubscribe();
-    }
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
@@ -50,16 +32,10 @@ export default function MainContent() {
       className="App"
     >
       <Image src={wcLogo} alt="Whitecaps Logo" width="300px" />
-      {/* <Heading level={3}>Welcome, {user.username}!</Heading> */}
-
-      {/* Display the schedule automatically below the heading */}
-      {/* {schedule && ( */}
-        <div>
-          <Heading level={4}>Previous Results: Last 4 Games</Heading>
-          <TeamSchedule/>
-          {/* <div dangerouslySetInnerHTML={{ __html: schedule }} /> */}
-        </div>
-      {/* // )} */}
+      <div>
+        <Heading level={4}>Previous Results: Last 4 Games</Heading>
+        <TeamSchedule />
+      </div>
 
       <Button onClick={createPlayer}>Add Player</Button>
       <ul>
@@ -67,12 +43,13 @@ export default function MainContent() {
           <li
             onClick={() => deletePlayer(player.id)} // Delete player on click
             key={player.id}
-            style={{ cursor: "pointer", margin: "10px 0" }} // Adding basic inline styling
+            style={{ cursor: "pointer", margin: "10px 0" }}
           >
             {player.content}
           </li>
         ))}
       </ul>
+
       <Button onClick={signOut}>Sign Out</Button>
     </Flex>
   );

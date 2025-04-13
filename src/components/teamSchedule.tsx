@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from '@aws-amplify/ui-react';
-import tableTheme from '../themes/tableTheme'; // Import the theme
+import tableTheme from '../themes/tableTheme'; 
 
 export const TeamSchedule = () => {
   const [schedule, setSchedule] = useState<any[] | null>(null);
