@@ -12,7 +12,7 @@ interface PlayerType {
 }
 
 export default function MainContent() {
-  
+
   const { user, signOut } = useAuthenticator();                  // Authenticator hooks for user and sign-out functionality
   const [players, setPlayers] = useState<PlayerType[]>([]);      // Local state for player data
   const [schedule, setSchedule] = useState<string | null>(null); // State to store the schedule data
@@ -21,22 +21,19 @@ export default function MainContent() {
   /* Fetch and execute getSchedule, subscribe to 
      player updates automatically on component mount */
   useEffect(() => {
-    
+
     const subscription = observePlayers(setPlayers);
 
-    if (!didFetch.current) {    
+    if (!didFetch.current) {
 
       didFetch.current = true;
 
-      let schedule = getSchedule()      
-        .then((data) => {
-          if (data) {            
-            // console.log("schedule json: ", schedule)                     
-          } else {
-            console.log("No schedule data available."); 
-          }
-        })
-        .catch((error) => console.error("Error fetching schedule:", error));  
+      const fetchData = async () => {
+        const scheduleData = await getSchedule();
+        setSchedule(scheduleData);        
+      };
+
+      fetchData();
 
       return () => subscription.unsubscribe();
     }
@@ -61,7 +58,7 @@ export default function MainContent() {
           <div dangerouslySetInnerHTML={{ __html: schedule }} />
         </div>
       )}
-      
+
       <Button onClick={createPlayer}>Add Player</Button>
       <ul>
         {players.map((player) => (
