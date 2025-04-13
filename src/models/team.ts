@@ -4,7 +4,6 @@
 export async function getSchedule(): Promise<string | null> {
 
     let scheduleJson
-    let scheduleTable
 
     console.log("hello from getSchedule()")
 
@@ -19,7 +18,7 @@ export async function getSchedule(): Promise<string | null> {
 
         scheduleJson = await response.json();
         console.log(scheduleJson);
-        scheduleTable = displaySchedule(scheduleJson);
+        // scheduleTable = displaySchedule(scheduleJson);
 
     } catch (error) {
         if (error instanceof Error) {
@@ -28,7 +27,7 @@ export async function getSchedule(): Promise<string | null> {
             console.error("An unknown error occurred");
         }
     }
-    return scheduleTable || null;
+    return scheduleJson || null;
 }
 
 function displaySchedule(scheduleJson: Record<string, any>) {
