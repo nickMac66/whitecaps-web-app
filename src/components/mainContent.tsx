@@ -3,7 +3,7 @@ import wcLogo from "../assets/images/wc-logo.jpg";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { useEffect, useRef, useState } from "react";
 import { createPlayer, deletePlayer, observePlayers } from "../models/player";
-import { getSchedule } from "../models/team";
+// import { getSchedule } from "../models/team";
 import { TeamSchedule } from "./teamSchedule";
 
 // Define the type for players Schema in player.ts
@@ -16,7 +16,7 @@ export default function MainContent() {
 
   const { signOut } = useAuthenticator();                  // Authenticator hooks for user and sign-out functionality
   const [players, setPlayers] = useState<PlayerType[]>([]);      // Local state for player data
-  const [schedule, setSchedule] = useState<string | null>(null); // State to store the schedule data
+  // const [schedule, setSchedule] = useState<string | null>(null); // State to store the schedule data
   const didFetch = useRef(false);                                // Ref to prevent duplicate fetch calls
 
   /* Fetch and execute getSchedule, subscribe to 
@@ -30,8 +30,8 @@ export default function MainContent() {
       didFetch.current = true;
 
       const fetchData = async () => {
-        const scheduleData = await getSchedule();
-        setSchedule(scheduleData);
+        // const scheduleData = await getSchedule();
+        // setSchedule(scheduleData);
       };
 
       fetchData();
@@ -53,13 +53,13 @@ export default function MainContent() {
       {/* <Heading level={3}>Welcome, {user.username}!</Heading> */}
 
       {/* Display the schedule automatically below the heading */}
-      {schedule && (
+      {/* {schedule && ( */}
         <div>
           <Heading level={4}>Previous Results: Last 4 Games</Heading>
           <TeamSchedule/>
           {/* <div dangerouslySetInnerHTML={{ __html: schedule }} /> */}
         </div>
-      )}
+      {/* // )} */}
 
       <Button onClick={createPlayer}>Add Player</Button>
       <ul>

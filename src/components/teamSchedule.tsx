@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Table,
   TableHead,
@@ -13,7 +13,7 @@ const theme: Theme = {
   name: 'table-theme',
   tokens: {
     components: {
-      table: {
+      table: {        
         row: {
           hover: {
             backgroundColor: { value: '{colors.blue.20}' },            
