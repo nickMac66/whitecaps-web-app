@@ -26,7 +26,7 @@ dist-ssr
 # amplify
 .amplify
 amplify_outputs*
-amplifyconfiguration*
+# amplifyconfiguration*
 
 # Playwright
 /test-results/
