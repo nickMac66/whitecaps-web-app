@@ -368,7 +368,7 @@
         "Name": "scheduleApi"
       }
     },
-    "scheduleApiDefault4XXResponse68952c93": {
+    "scheduleApiDefault4XXResponsea1bf5cba": {
       "Type": "AWS::ApiGateway::GatewayResponse",
       "Properties": {
         "ResponseParameters": {
@@ -383,7 +383,7 @@
         }
       }
     },
-    "scheduleApiDefault5XXResponse68952c93": {
+    "scheduleApiDefault5XXResponsea1bf5cba": {
       "Type": "AWS::ApiGateway::GatewayResponse",
       "Properties": {
         "ResponseParameters": {
@@ -398,7 +398,7 @@
         }
       }
     },
-    "DeploymentAPIGWscheduleApieb13df9e": {
+    "DeploymentAPIGWscheduleApiacce13a4": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "Description": "The Development stage deployment of your API.",
@@ -416,8 +416,8 @@
         }
       },
       "DependsOn": [
-        "scheduleApiDefault4XXResponse68952c93",
-        "scheduleApiDefault5XXResponse68952c93"
+        "scheduleApiDefault4XXResponsea1bf5cba",
+        "scheduleApiDefault5XXResponsea1bf5cba"
       ]
     }
   }
