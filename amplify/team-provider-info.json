@@ -1,0 +1,48 @@
+{
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-whitecapswebapp-prod-83b9e-authRole",
+      "UnauthRoleArn": "arn:aws:iam::863518437471:role/amplify-whitecapswebapp-prod-83b9e-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::863518437471:role/amplify-whitecapswebapp-prod-83b9e-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-whitecapswebapp-prod-83b9e-deployment",
+      "UnauthRoleName": "amplify-whitecapswebapp-prod-83b9e-unauthRole",
+      "StackName": "amplify-whitecapswebapp-prod-83b9e",
+      "StackId": "arn:aws:cloudformation:ca-central-1:863518437471:stack/amplify-whitecapswebapp-prod-83b9e/782a8f60-1ac5-11f0-93a2-0e2cf692cb2d",
+      "AmplifyAppId": "dduyq15okteog"
+    },
+    "categories": {
+      "auth": {
+        "whitecapswebapp": {}
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-whitecapswebapp-dev-5a3eb-authRole",
+      "UnauthRoleArn": "arn:aws:iam::863518437471:role/amplify-whitecapswebapp-dev-5a3eb-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::863518437471:role/amplify-whitecapswebapp-dev-5a3eb-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-whitecapswebapp-dev-5a3eb-deployment",
+      "UnauthRoleName": "amplify-whitecapswebapp-dev-5a3eb-unauthRole",
+      "StackName": "amplify-whitecapswebapp-dev-5a3eb",
+      "StackId": "arn:aws:cloudformation:ca-central-1:863518437471:stack/amplify-whitecapswebapp-dev-5a3eb/a8ffeef0-1ac5-11f0-8683-0a8ad019fd57",
+      "AmplifyAppId": "dduyq15okteog",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-whitecapswebapp-dev-5a3eb-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "whitecapswebapp": {}
+      },
+      "function": {
+        "scheduleLambda": {
+          "deploymentBucketName": "amplify-whitecapswebapp-dev-5a3eb-deployment",
+          "s3Key": "amplify-builds/scheduleLambda-71422f4c566b31783667-build.zip"
+        }
+      },
+      "api": {
+        "scheduleApi": {}
+      }
+    }
+  }
+}

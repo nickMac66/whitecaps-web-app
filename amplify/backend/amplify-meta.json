@@ -1,0 +1,111 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-whitecapswebapp-dev-5a3eb-authRole",
+      "UnauthRoleArn": "arn:aws:iam::863518437471:role/amplify-whitecapswebapp-dev-5a3eb-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::863518437471:role/amplify-whitecapswebapp-dev-5a3eb-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-whitecapswebapp-dev-5a3eb-deployment",
+      "UnauthRoleName": "amplify-whitecapswebapp-dev-5a3eb-unauthRole",
+      "StackName": "amplify-whitecapswebapp-dev-5a3eb",
+      "StackId": "arn:aws:cloudformation:ca-central-1:863518437471:stack/amplify-whitecapswebapp-dev-5a3eb/a8ffeef0-1ac5-11f0-8683-0a8ad019fd57",
+      "AmplifyAppId": "dduyq15okteog"
+    }
+  },
+  "api": {
+    "scheduleApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "scheduleLambda",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "output": {
+        "ApiName": "scheduleApi",
+        "RootUrl": "https://a6kkf1gwqb.execute-api.ca-central-1.amazonaws.com/dev",
+        "ApiId": "a6kkf1gwqb"
+      },
+      "lastPushTimeStamp": "2025-04-17T13:51:36.358Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-whitecapswebapp-dev-5a3eb-deployment/amplify-cfn-templates/api/scheduleApi-cloudformation-template.json",
+        "logicalId": "apischeduleApi"
+      }
+    }
+  },
+  "auth": {
+    "whitecapswebapp": {
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "managed",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-whitecapswebapp-dev-5a3eb-deployment/amplify-cfn-templates/auth/whitecapswebapp-cloudformation-template.json",
+        "logicalId": "authwhitecapswebapp"
+      },
+      "lastPushTimeStamp": "2025-04-17T13:51:36.360Z",
+      "output": {
+        "CreatedSNSRole": "arn:aws:iam::863518437471:role/sns73bcc4955a3eb-dev",
+        "UserPoolId": "ca-central-1_SHjs4rjCt",
+        "AppClientIDWeb": "721okk19si8jbqtupm8luhcmlr",
+        "AppClientID": "562nno3mi7eb8egpio6cadr8vu",
+        "IdentityPoolId": "ca-central-1:e2fed302-6a90-4c12-a952-1d10ce00b0ec",
+        "UserPoolArn": "arn:aws:cognito-idp:ca-central-1:863518437471:userpool/ca-central-1_SHjs4rjCt",
+        "IdentityPoolName": "whitecapswebapp_identitypool_73bcc495__dev",
+        "UserPoolName": "whitecapswebapp_userpool_73bcc495"
+      },
+      "lastPushDirHash": "DsDdOeznwjxv9qklDr+UqiDuxOY="
+    }
+  },
+  "function": {
+    "scheduleLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::863518437471:role/whitecapswebappLambdaRolec5509f25-dev",
+        "Region": "ca-central-1",
+        "Arn": "arn:aws:lambda:ca-central-1:863518437471:function:scheduleLambda-dev",
+        "Name": "scheduleLambda-dev",
+        "LambdaExecutionRole": "whitecapswebappLambdaRolec5509f25-dev"
+      },
+      "lastPushTimeStamp": "2025-04-17T13:51:37.024Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-whitecapswebapp-dev-5a3eb-deployment/amplify-cfn-templates/function/scheduleLambda-cloudformation-template.json",
+        "logicalId": "functionscheduleLambda"
+      },
+      "lastBuildTimeStamp": "2025-04-17T13:50:24.987Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2025-04-17T13:50:30.390Z",
+      "distZipFilename": "scheduleLambda-71422f4c566b31783667-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-whitecapswebapp-dev-5a3eb-deployment",
+        "s3Key": "amplify-builds/scheduleLambda-71422f4c566b31783667-build.zip"
+      },
+      "lastPushDirHash": "wQrRyJ9R36P2zijy54YKiwcEK1A="
+    }
+  }
+}

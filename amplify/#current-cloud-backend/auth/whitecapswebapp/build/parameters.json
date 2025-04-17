@@ -1,0 +1,54 @@
+{
+  "identityPoolName": "whitecapswebapp_identitypool_73bcc495",
+  "allowUnauthenticatedIdentities": true,
+  "resourceNameTruncated": "whitec73bcc495",
+  "userPoolName": "whitecapswebapp_userpool_73bcc495",
+  "autoVerifiedAttributes": [
+    "email"
+  ],
+  "mfaConfiguration": "OFF",
+  "mfaTypes": [
+    "SMS Text Message"
+  ],
+  "smsAuthenticationMessage": "Your authentication code is {####}",
+  "smsVerificationMessage": "Your verification code is {####}",
+  "emailVerificationSubject": "Your verification code",
+  "emailVerificationMessage": "Your verification code is {####}",
+  "defaultPasswordPolicy": false,
+  "passwordPolicyMinLength": 8,
+  "passwordPolicyCharacters": [],
+  "requiredAttributes": [
+    "email"
+  ],
+  "aliasAttributes": [],
+  "userpoolClientGenerateSecret": false,
+  "userpoolClientRefreshTokenValidity": 30,
+  "userpoolClientWriteAttributes": [
+    "email"
+  ],
+  "userpoolClientReadAttributes": [
+    "email"
+  ],
+  "userpoolClientLambdaRole": "whitec73bcc495_userpoolclient_lambda_role",
+  "userpoolClientSetAttributes": false,
+  "authSelections": "identityPoolAndUserPool",
+  "resourceName": "whitecapswebapp",
+  "sharedId": "73bcc495",
+  "serviceName": "Cognito",
+  "useDefault": "manual",
+  "authRoleArn": {
+    "Fn::GetAtt": [
+      "AuthRole",
+      "Arn"
+    ]
+  },
+  "unauthRoleArn": {
+    "Fn::GetAtt": [
+      "UnauthRole",
+      "Arn"
+    ]
+  },
+  "breakCircularDependency": false,
+  "useEnabledMfas": false,
+  "dependsOn": []
+}

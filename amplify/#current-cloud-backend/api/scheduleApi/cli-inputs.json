@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/schedule": {
+      "name": "/schedule",
+      "lambdaFunction": "scheduleLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

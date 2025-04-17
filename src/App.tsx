@@ -1,7 +1,7 @@
 import NavMenu from "./components/navMenu";
 import MainContent from "./components/mainContent";
 
-function App() {
+function App() {  
 
   return (
     <>

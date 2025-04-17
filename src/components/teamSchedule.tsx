@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from '@aws-amplify/ui-react';
-import tableTheme from '../themes/tableTheme'; 
+import tableTheme from '../themes/tableTheme';
+// import { get } from 'aws-amplify/api';
 
 export const TeamSchedule = () => {
   const [schedule, setSchedule] = useState<any[] | null>(null);
@@ -9,6 +10,8 @@ export const TeamSchedule = () => {
 
   useEffect(() => {
     const getSchedule = async () => {
+      console.log("teamSchedule: getSchedule()");
+
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -17,12 +20,47 @@ export const TeamSchedule = () => {
         const scheduleJson = await response.json();
         setSchedule(scheduleJson);
       } catch (error) {
-        setError(error instanceof Error ? error.message : 'An unknown error occurred');
+        setError(error instanceof Error ? error.message : "An unknown error occurred"); // Assuming `setError` handles errors in your state
       }
     };
 
     getSchedule();
   }, []);
+
+  // export async function getSchedule() {
+  // try {
+  //   const restOperation = get({
+  //     apiName: 'scheduleApi',
+  //     path: '/schedule'
+  //   });
+  //   const response = await restOperation.response;
+  //   console.log('GET call succeeded: ', response);
+  // } catch (e) {
+  //   if (e instanceof Error && 'response' in e && typeof (e as any).response === 'object' && (e as any).response.body) {
+  //     console.log('GET call failed: ', JSON.parse((e as any).response.body));
+  //   } else {
+  //     console.log('GET call failed: ', e);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   const getSchedule = async () => {
+  //     console.log("teamSchedule: getSchedule()");
+
+  //     try {
+  //       const response = await fetch(url); 
+  //       if (!response.ok) {
+  //         throw new Error(`Response status: ${response.status}`);
+  //       }
+  //       const scheduleJson = await response.json();
+  //       setSchedule(scheduleJson); 
+  //     } catch (error) {
+  //       setError(error instanceof Error ? error.message : "An unknown error occurred"); // Assuming `setError` handles errors in your state
+  //     }
+  //   };
+
+  //   getSchedule(); 
+  // }, []); 
 
   if (error) return <div>Error: {error}</div>;
   if (!schedule) return <div>Loading schedule...</div>;
@@ -66,3 +104,5 @@ export const TeamSchedule = () => {
     </ThemeProvider>
   );
 };
+
+export default TeamSchedule

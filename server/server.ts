@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 
 const app = express();
-const port = 3000; 
+const port = 3000;
 
 const targetUrl = "https://queenscountyrec.com/teams/?seasonNo=64&teamNo=5";
 const targetId = "#calendarTeam";
@@ -12,13 +12,10 @@ const targetId = "#calendarTeam";
 app.use(cors())
 
 app.get('/', async (req, res) => {
-
     try {
-
         const { chromium } = playwright;
 
         (async () => {
-
             const browser = await chromium.launch({ headless: true });
             const context = await browser.newContext({
                 userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
@@ -29,7 +26,6 @@ app.get('/', async (req, res) => {
             await page.goto('https://queenscountyrec.com/teams/?seasonNo=64&teamNo=5', { waitUntil: 'networkidle' });
             await page.waitForSelector('#calendarTeam');
 
-            const rawHtml = await page.$eval('#calendarTeam', element => element.innerHTML);            
             const data = await page.$$eval('#calendarTeam table tbody tr', rows => {
 
                 return rows.map(row => {
@@ -46,11 +42,11 @@ app.get('/', async (req, res) => {
                         goalsFor: cells[8]?.innerText.trim(),
                         goalsAgainst: cells[9]?.innerText.trim(),
                         shotsAgainst: cells[10]?.innerText.trim(),
-                    };                    
-                });                
+                    };
+                });
             });
-        
-            res.send(data);                                    
+
+            res.send(data);
             await browser.close();
         })();
 
