@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 
 const app = express();
-const port = 3000;
+const serverUrl = "https://a6kkf1gwqb.execute-api.ca-central-1.amazonaws.com/dev";
 
 const targetUrl = "https://queenscountyrec.com/teams/?seasonNo=64&teamNo=5";
 const targetId = "#calendarTeam";
@@ -57,6 +57,6 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+app.listen(serverUrl, () => {
+    console.log(`Server is running at ${serverUrl}`);
 });

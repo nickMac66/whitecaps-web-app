@@ -37,7 +37,7 @@
       "function": {
         "scheduleLambda": {
           "deploymentBucketName": "amplify-whitecapswebapp-dev-5a3eb-deployment",
-          "s3Key": "amplify-builds/scheduleLambda-71422f4c566b31783667-build.zip"
+          "s3Key": "amplify-builds/scheduleLambda-6d324548597663346139-build.zip"
         }
       },
       "api": {

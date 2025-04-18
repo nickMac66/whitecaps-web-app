@@ -1,66 +1,39 @@
 import { useState, useEffect } from 'react';
 import { Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from '@aws-amplify/ui-react';
 import tableTheme from '../themes/tableTheme';
-// import { get } from 'aws-amplify/api';
+import { postSchedule } from '../api/scheduleApi';
 
 export const TeamSchedule = () => {
   const [schedule, setSchedule] = useState<any[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const url = 'http://localhost:3000';
+  const url = 'https://a6kkf1gwqb.execute-api.ca-central-1.amazonaws.com/dev/schedule';
+
+  const getSchedule = async () => {
+    console.log("hello from getSchedule()");
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const scheduleJson = await response.json();
+      setSchedule(scheduleJson);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "An unknown error occurred");
+    }
+  };
 
   useEffect(() => {
-    const getSchedule = async () => {
-      console.log("teamSchedule: getSchedule()");
-
+    const fetchData = async () => {
       try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-        }
-        const scheduleJson = await response.json();
-        setSchedule(scheduleJson);
+        await postSchedule(); 
+        getSchedule();        
       } catch (error) {
-        setError(error instanceof Error ? error.message : "An unknown error occurred"); // Assuming `setError` handles errors in your state
+        console.error("Error in fetchData:", error);
       }
     };
 
-    getSchedule();
+    fetchData(); // Call the async function
   }, []);
-
-  // export async function getSchedule() {
-  // try {
-  //   const restOperation = get({
-  //     apiName: 'scheduleApi',
-  //     path: '/schedule'
-  //   });
-  //   const response = await restOperation.response;
-  //   console.log('GET call succeeded: ', response);
-  // } catch (e) {
-  //   if (e instanceof Error && 'response' in e && typeof (e as any).response === 'object' && (e as any).response.body) {
-  //     console.log('GET call failed: ', JSON.parse((e as any).response.body));
-  //   } else {
-  //     console.log('GET call failed: ', e);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   const getSchedule = async () => {
-  //     console.log("teamSchedule: getSchedule()");
-
-  //     try {
-  //       const response = await fetch(url); 
-  //       if (!response.ok) {
-  //         throw new Error(`Response status: ${response.status}`);
-  //       }
-  //       const scheduleJson = await response.json();
-  //       setSchedule(scheduleJson); 
-  //     } catch (error) {
-  //       setError(error instanceof Error ? error.message : "An unknown error occurred"); // Assuming `setError` handles errors in your state
-  //     }
-  //   };
-
-  //   getSchedule(); 
-  // }, []); 
 
   if (error) return <div>Error: {error}</div>;
   if (!schedule) return <div>Loading schedule...</div>;

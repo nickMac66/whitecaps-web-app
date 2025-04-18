@@ -1,6 +1,6 @@
 {
   "httpMethod": "POST",
-  "path": "/item",
+  "path": "/schedule",
   "queryStringParameters": {
     "limit": "10"
   },
